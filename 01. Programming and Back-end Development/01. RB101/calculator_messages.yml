@@ -1,5 +1,15 @@
 
 welcome: "Welcome to Calculator! Enter your name:"
+loan_welcome: "Welcome to Loan Calculator! Enter your name:"
+loan_amount: "How much are you borrowing?"
+loan_apy: "What is the anticipated APR (%)? (Default = 0.5%)"
+loan_dur: "
+  Select desired loan duration:\n
+  1) 12 months\n
+  2) 24 months\n
+  3) 36 months\n
+  4) 48 months\n
+  "
 valid_name: "Please enter a valid name!"
 invalid_num: "Invalid number entry! Try again..."
 operator_prompt: "

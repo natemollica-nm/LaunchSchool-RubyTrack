@@ -110,7 +110,7 @@ loop do
     if %(1 2 3 4).include?(operator)
       break
     else
-      prompt(MESSAGES['invalid_oprator'])
+      prompt(MESSAGES['invalid_operator'])
     end
   end
   clear()
