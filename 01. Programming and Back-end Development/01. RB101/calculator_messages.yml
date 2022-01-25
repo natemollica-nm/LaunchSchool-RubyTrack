@@ -1,0 +1,13 @@
+
+welcome: "Welcome to Calculator! Enter your name:"
+valid_name: "Please enter a valid name!"
+invalid_num: "Invalid number entry! Try again..."
+operator_prompt: "
+  What operation would you like to perform?\n
+    1) add\n
+    2) subtract\n
+    3) multiply\n
+    4) divide\n"
+invalid_operator: "Must be 1, 2, 3, or 4."
+continue_prompt: "Would you like to perform another calculation? (Enter 'y' for yes / 'n' for no.)"
+# ... rest of file omitted for brevity

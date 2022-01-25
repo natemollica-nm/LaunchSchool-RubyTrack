@@ -34,8 +34,7 @@ Kernel.puts('What\'s the second number?')
 number_two = Kernel.gets.chomp
 Kernel.puts("Second #: #{number_two}!")
 
-Kernel.puts('What operaiton would you like to perform? 1)
-  add 2) subtract 3) multiply 4) divide')
+Kernel.puts('What operaiton would you like to perform? 1)add 2) subtract 3) multiply 4) divide')
 operator = Kernel.gets.chomp
 
 case operator
