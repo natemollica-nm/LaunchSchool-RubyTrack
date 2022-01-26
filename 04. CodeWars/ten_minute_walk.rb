@@ -19,7 +19,7 @@
 
 # ======== START: Var Declaration ========
 # 10x10 grid representing city
-CARTESIA = Array.new(10) { Array.new(10, 'O') }
+$cartesia = Array.new(10) { Array.new(10, 'O') }
 
 # Hashtable to map North, East, South, West 
 #   to corresponding direction movement.
@@ -33,12 +33,12 @@ coords = { x: coordinates.sample, y: coordinates.sample }
 start_coords = { x: coords[:x], y: coords[:y] }
 
 # Setting inital coordinate positino on cartesia grid.
-CARTESIA[coords[:x]][coords[:y]] = 'X'
+$cartesia[coords[:x]][coords[:y]] = 'X'
 # END: ======== END: Var Declaration ========
 
 # ======== START: Function Definitions ========
 def print_array(in_array) in_array.each { |x| puts x.join(' ') }; end
-def clear system('clear') || system('cls'); end
+def clear() system('clear') || system('cls'); end
 
 def walk (coord_hash, dir)
   x = coord_hash[:x]
@@ -46,10 +46,10 @@ def walk (coord_hash, dir)
   if dir == :N || dir == :S; y = y + DIRECTIONS[dir]; end
   if dir == :E || dir == :W; x = x + DIRECTIONS[dir]; end
   if (x < 10) && (x > -1) && (y < 10) && (y > -1)
-    CARTESIA[coord_hash[:x]][coord_hash[:y]] = '*'
+    $cartesia[coord_hash[:x]][coord_hash[:y]] = '*'
     coord_hash[:x] = x
     coord_hash[:y] = y
-    CARTESIA[coord_hash[:x]][coord_hash[:y]] = 'X'
+    $cartesia[coord_hash[:x]][coord_hash[:y]] = 'X'
   end
 end
 
@@ -76,13 +76,13 @@ rand_route.each do |dir|
   clear()
   step_arr[i] = [coords[:x],coords[:y]]
   puts "Step: #{i} => (#{coords[:x]},#{coords[:y]})"
-  print_array(CARTESIA)
+  print_array($cartesia)
   puts "==================="
   i += 1
 end
 clear()
 puts "Start Pos => (#{start_coords[:x]},#{start_coords[:y]}) / Final Pos => (#{coords[:x]},#{coords[:y]})"
-print_array(CARTESIA)
+print_array($cartesia)
 puts "==================="
 step_arr.each {|step| puts "#{step}" }
 puts "Random Walk Route #{rand_route}"
