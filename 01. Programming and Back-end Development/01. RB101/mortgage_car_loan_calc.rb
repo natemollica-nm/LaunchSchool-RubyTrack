@@ -1,11 +1,12 @@
 =begin
-  Take everything you've learned so far and build a mortgage calculator (or car payment calculator -- it's the same thing).
+  Take everything you've learned so far and build a mortgage calculator
+    (or car payment calculator -- it's the same thing).
 
   You'll need three pieces of information:
     1. the loan amount
     2. the Annual Percentage Rate (APY)
     3. the loan duration
-  
+
   From the above, you'll need to calculate the following things:
     1. monthly interest rate
     2. loan duration in months
@@ -19,14 +20,15 @@
       n = loan duration in months
 
   Hints:
-    1. Figure out what format your inputs need to be in. 
-        For example, should the interest rate be expressed as 5 or .05, 
+    1. Figure out what format your inputs need to be in.
+        For example, should the interest rate be expressed as 5 or .05,
           if you mean 5% interest?
-    2. If you're working with Annual Percentage Rate (APY), you'll need to 
+    2. If you're working with Annual Percentage Rate (APY), you'll need to
         convert that to a monthly interest rate.
-    3. Be careful about the loan duration -- are you working with months or years? 
+    3. Be careful about the loan duration --
+        Are you working with months or years?
         Choose variable names carefully to assist in remembering.
-  
+
 =end
 require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')
@@ -37,10 +39,10 @@ loan_amount = 0.0
 apy = 0.5
 loan_dur = 0
 loan_dur_hash = {
-  :'1' => 12,
-  :'2' => 24,
-  :'3' => 36,
-  :'4' => 48
+  '1': 12,
+  '2': 24,
+  '3': 36,
+  '4': 48
 }
 # ========= END: Variable Declaration =========
 
@@ -48,24 +50,26 @@ loan_dur_hash = {
 
 def calc_mortgage(loan_total, apy, duration)
   apr = (apy.to_f / 100.0) / 12
-  loan_total = loan_total.tr(',','').to_f.round(2)
+  loan_total = loan_total.tr(',', '').to_f.round(2)
   loan_total * (apr / (1 - (1 + apr)**(duration * -1)))
 end
 
-def prompt(message) # Function to better prompt user messages during program use.
+# Function to better prompt user messages during program use.
+def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-def clear() # Function to clear console.
+def clear # Function to clear console.
   system('clear') || system('cls')
 end
 
-def valid_number?(num) # Function to validate user num input does not contain a letter.
-  (num.to_i != 0) && (num.to_f != 0) && (not num.each_char.any?(/\A[a-zA-Z'-]*\z/))
+# Function to validate user num input does not contain a letter.
+def valid_number?(num)
+  (num.to_i != 0) && (num.to_f != 0) && (!num.each_char.any?(/\A[a-zA-Z'-]*\z/))
 end
 
 def valid_percentage?(percentage)
-  (percentage.to_f != 0) && (not percentage.each_char.any?(/\A[a-zA-Z'-]*\z/))
+  (percentage.to_f != 0) && (!percentage.each_char.any?(/\A[a-zA-Z'-]*\z/))
 end
 
 def valid_name?(name)
@@ -89,12 +93,13 @@ loop do
   end
 end
 # Mutate name to capitalize first, middle, and last (middle and last optional)
-name = name.split(' ').map {|nme| nme.capitalize!}.join(' ')
+name = name.split(' ').map(&:capitalize!).join(' ')
 clear()
 # ========= END: Name Retrieval ========= #
 
 # ========= START: Main Program (Main Loop) ========= #
-prompt("Hello #{name}! Let's go through some questions regarding your loan.")
+prompt("Hello #{name}!
+  Let's go through some questions regarding your loan.")
 loop do
   loop do
     prompt(MESSAGES['loan_amount'])
@@ -125,9 +130,14 @@ loop do
     end
   end
   clear()
-  monthly_payment = calc_mortgage(loan_amount,apy,loan_dur).round(2)
-  prompt("Loan Conditions Entered:\nAmount: #{number_to_currency(loan_amount.tr(',',''))}\nAPY: #{apy}%\nLoan Duration: #{loan_dur} Months")
-  prompt("#{name}'s Estimated Monthly Payment: #{number_to_currency(monthly_payment)}")
+  monthly_payment = calc_mortgage(loan_amount, apy, loan_dur).round(2)
+  prompt("Loan Conditions Entered:\n
+    Amount: #{number_to_currency(loan_amount.tr(',', ''))}\n
+    APY: #{apy}%\n
+    Loan Duration: #{loan_dur} Months
+    ")
+  prompt("#{name}'s Estimated Monthly Payment:
+    #{number_to_currency(monthly_payment)}")
   prompt(MESSAGES['continue_prompt'])
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
