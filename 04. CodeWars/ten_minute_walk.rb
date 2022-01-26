@@ -18,7 +18,6 @@
 # 5. Walk should return user to original location.
 
 # ======== START: Var Declaration ========
-
 # 10x10 grid representing city
 CARTESIA = Array.new(10) { Array.new(10, 'O') }
 
@@ -28,20 +27,18 @@ DIRECTIONS = { 'N': 1, 'E': 1, 'S': -1, 'W': -1 }
 
 # Limiting coordinate positions to 10x10 grid.
 coordinates = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
 # Current x,y positional coordinates.
-coords = { x: 4, y: 4 }
-start_coords = { x: 4, y: 4 }
+coords = { x: coordinates.sample, y: coordinates.sample }
+start_coords = { x: coords[:x], y: coords[:y] }
+
 # Setting inital coordinate positino on cartesia grid.
 CARTESIA[coords[:x]][coords[:y]] = 'X'
-
 # END: ======== END: Var Declaration ========
 
 # ======== START: Function Definitions ========
-
 def print_array(in_array) in_array.each { |x| puts x.join(' ') }; end
-def clear # Function to clear console.
-  system('clear') || system('cls')
-end
+def clear system('clear') || system('cls'); end
 
 def walk (coord_hash, dir)
   x = coord_hash[:x]
@@ -58,7 +55,7 @@ end
 
 def walk_generator
   route = []
-  route << DIRECTIONS.keys.sample while route.count < 10 if route.count < 10
+  route << DIRECTIONS.keys.sample while route.count < 10
   return route if (route.count(:W) == route.count(:E)) && (route.count(:N) == route.count(:S))
   route = []
   walk_generator
@@ -67,26 +64,27 @@ end
 def is_valid_walk(walk, final, start)
   (walk.count == 10) && (walk.map { |dir| DIRECTIONS[dir] }.sum) == 0 && (final == start)
 end
-
 # ======== END: Function Definitions ========
 
 # ======== START: Main Program ========
 rand_route = walk_generator
+step_arr = {}
 i = 1
 rand_route.each do |dir|
   walk(coords, dir)
   sleep 1
   clear()
+  step_arr[i] = [coords[:x],coords[:y]]
   puts "Step: #{i} => (#{coords[:x]},#{coords[:y]})"
   print_array(CARTESIA)
   puts "==================="
   i += 1
 end
 clear()
-puts "Final Pos => (#{coords[:x]},#{coords[:y]})"
+puts "Start Pos => (#{start_coords[:x]},#{start_coords[:y]}) / Final Pos => (#{coords[:x]},#{coords[:y]})"
 print_array(CARTESIA)
 puts "==================="
+step_arr.each {|step| puts "#{step}" }
 puts "Random Walk Route #{rand_route}"
 puts "Valid Walk: #{is_valid_walk(rand_route, coords, start_coords)}"
-
-# ======== START: Main Program ========
+# ======== END: Main Program ========
